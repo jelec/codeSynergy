@@ -1,13 +1,9 @@
 import os 
 import sys
-from util import save,load,mkdir, log
-import collections
+from util import save,load,mkdir
 from globalVars import set,get
-
-# Also have the ability to start services here 
-def cont(state, cmd):
-  set("continued", state)
-  set("prev", cmd)
+import gen
+import misc
 
 # Get arguments
 def getArgs(data):
@@ -18,29 +14,15 @@ def getArgs(data):
   s = data.split(' ');
   return s
 
-def hello(args, flag):
-  if( flag):
-    print "hello world"
-    cont(1,"hello")
-  else:
-    print "yolo"
-    cont(0,"hello")
-
-def start(args,flag):
-  nargs = get("nargs")
-  if( nargs > 1):
-    mkdir(args[1])
-
-routes = { "hello" : hello,
-            "start" : start}
-
+# Command Routing 
+routes = { "hello" : misc.hello,
+            "start" : misc.start}
 
 # Route commands as shown
 def commands(data):
   # Process the user command
   args = getArgs(data)
   contFlag = get("continued")
-  print contFlag
   if args[0] in routes:
     routes[args[0]](args, contFlag)
   else:

@@ -1,11 +1,15 @@
 import os
 import sys
+from util import save,load,mkdir
 from commands import commands # Library to keep all the command directing
 from globalVars import get,set
 
 #Initialization
 def init():
   set("continued",0)
+  mkdir("blocks") # Storage of these projects
+  mkdir("files")
+  mkdir("projects")
 
 
 # Command Line interface
