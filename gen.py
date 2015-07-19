@@ -11,14 +11,21 @@ from globalVars import set,get
 # @Params : File - Name of the file we want to insert it to (if stdout)
 # @Params : Line - Line in the file 
 def codeBlock(args,flag):
-  # First establish the code base
+  PARAM_KEY = 1;
+  PARAM_FILE = 2;
+  PARAM_LINE = 3;
   # Ability to add a block of code through copy and paste and have it formatted correctly!
-  if( keyExists("blocks",args[1])):
-    if( "stdout" in args[2]):
-      print load("blocks/"+args[1])
-    # Else save the information inside the file itself
+  if( keyExists("blocks",args[PARAM_KEY])):
+    block = load("blocks/"+args[PARAM_KEY]);
+    if(len(args) < 3 ): # No file specified
+      print block
+    else:
+      if( len(args) < 3): 
+        save(args[PARAM_FILE],block)
+      elif( len(args) > 3): # Argument for line 
+        save(args[PARAM_FILE],block,args[PARAM_LINE])
   else:
-    
+    print "Error: Block does not exist"
 
 # Generation of a file with accordance of a JSON map 
 # Description: Outputs the file into a directory
@@ -26,8 +33,11 @@ def codeBlock(args,flag):
 # @Params : File - Name of the file we want to out (e.g. stdout or text.txt)
 def codeFile(args,flag): 
   # JSON mapping files using key value stores
-
-
+  if( keyExists("files",args[1])):
+    if( "stdout" in args[2]):
+      print load("files/"+args[1])
+  else:
+    print "Error: File does not exist"
 
 # Generation of a project with a set of files
 # Description: Outputs the entire project
@@ -35,4 +45,9 @@ def codeFile(args,flag):
 # @Params : Directory - Name of the directory used
 def codeProject(args,flag):
   # JSON mapping files and storage of this
+  if( keyExists("projects",args[1])):
+    if( "stdout" in args[2]):
+      print load("projects/"+args[1])
+  else:
+    print "Error: Project does not exist"
 

@@ -3,6 +3,7 @@ import sys
 from util import save,load,mkdir
 from globalVars import set,get
 import gen
+import create
 import misc
 
 # Get arguments
@@ -16,6 +17,8 @@ def getArgs(data):
 
 # Command Routing 
 routes = { "hello" : misc.hello,
+            "block" : gen.codeBlock,
+            "getBlock" : create.insertCodeBlock,
             "start" : misc.start}
 
 # Route commands as shown

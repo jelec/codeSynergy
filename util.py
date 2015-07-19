@@ -17,16 +17,20 @@ def load(path):
   return content
 
 # Write file function 
-def save(path, data):
-  with open(path,'w') as f:
+def save(path, data, line=0):
+  print line 
+  print int(line)
+  with open(path,'w+') as f:
+    f.seek(int(line)) #Save this information to a particular line
     f.write(data)
+
 
 def cont(state, cmd):
   set("continued", state)
   set("prev", cmd)
 
 def keyExists(path, key):
-  return kos.path.isfile(path+"/"+key) 
+  return os.path.isfile(path+"/"+key) 
 
 # Printing out colours
 class bcolors:
