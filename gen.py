@@ -10,7 +10,7 @@ from globalVars import set,get
 # @Params : Key - Name of the codeblock
 # @Params : File - Name of the file we want to insert it to (if stdout)
 # @Params : Line - Line in the file 
-def codeBlock(args,flag):
+def codeBlock(args,flag,data):
   PARAM_KEY = 1;
   PARAM_FILE = 2;
   PARAM_LINE = 3;
@@ -18,11 +18,12 @@ def codeBlock(args,flag):
   if( keyExists("blocks",args[PARAM_KEY])):
     block = load("blocks/"+args[PARAM_KEY]);
     if(len(args) < 3 ): # No file specified
-      print block
+      log(block)
     else:
-      if( len(args) < 3): 
+      if( len(args) < 4): 
+        log("Saving to file "+ args[PARAM_FILE] )
         save(args[PARAM_FILE],block)
-      elif( len(args) > 3): # Argument for line 
+      elif( len(args) > 4): # Argument for line 
         save(args[PARAM_FILE],block,args[PARAM_LINE])
   else:
     print "Error: Block does not exist"
@@ -31,7 +32,7 @@ def codeBlock(args,flag):
 # Description: Outputs the file into a directory
 # @Params : Key - Name of the code File
 # @Params : File - Name of the file we want to out (e.g. stdout or text.txt)
-def codeFile(args,flag): 
+def codeFile(args,flag,data): 
   # JSON mapping files using key value stores
   if( keyExists("files",args[1])):
     if( "stdout" in args[2]):
@@ -43,7 +44,7 @@ def codeFile(args,flag):
 # Description: Outputs the entire project
 # @Params : Key - Name of the code Project
 # @Params : Directory - Name of the directory used
-def codeProject(args,flag):
+def codeProject(args,flag,data):
   # JSON mapping files and storage of this
   if( keyExists("projects",args[1])):
     if( "stdout" in args[2]):

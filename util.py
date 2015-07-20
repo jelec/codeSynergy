@@ -18,8 +18,6 @@ def load(path):
 
 # Write file function 
 def save(path, data, line=0):
-  print line 
-  print int(line)
   with open(path,'w+') as f:
     f.seek(int(line)) #Save this information to a particular line
     f.write(data)
