@@ -1,6 +1,6 @@
 import os 
 import sys
-from util import save,load,mkdir
+from util import save,load,mkdir, error
 from globalVars import set,get
 from routes import routes
 
@@ -24,7 +24,7 @@ def commands(data):
   elif args[0] in routes:
     routes[args[0]](args, contFlag, data)
   else:
-    print "Error: Command Unavaliable" 
+    error("Error: Command Unavaliable") 
   
 
 

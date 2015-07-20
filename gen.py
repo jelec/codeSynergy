@@ -1,7 +1,8 @@
 import os 
 import sys
-from util import save,load,mkdir,cont,log, keyExists
+from util import save,load,mkdir,cont,log, keyExists, loadJSON, error, printClear
 from globalVars import set,get
+import json
 
 # Code Generation Functions : Proct through command line
 
@@ -26,19 +27,33 @@ def codeBlock(args,flag,data):
       elif( len(args) > 4): # Argument for line 
         save(args[PARAM_FILE],block,args[PARAM_LINE])
   else:
-    print "Error: Block does not exist"
+    error("Error: Block does not exist")
 
 # Generation of a file with accordance of a JSON map 
 # Description: Outputs the file into a directory
 # @Params : Key - Name of the code File
 # @Params : File - Name of the file we want to out (e.g. stdout or text.txt)
 def codeFile(args,flag,data): 
-  # JSON mapping files using key value stores
-  if( keyExists("files",args[1])):
-    if( "stdout" in args[2]):
-      print load("files/"+args[1])
+  PARAM_KEY = 1;
+  PARAM_FILE = 2; # Output file location
+  # Ability to add a block of code through copy and paste and have it formatted correctly!
+  if( keyExists("files",args[PARAM_KEY])):
+    _file = json.loads(load("files/"+args[PARAM_KEY]));
+    out = "" # Output string
+
+    # loadJSON 
+    for x in _file:
+      out += str(load("blocks/"+ x))
+      # out += "\n" # Adds some spacing between blocks
+
+    # No file specified
+    if(len(args) < 3 ): 
+      log(out)
+    else:
+      log("Saving to file "+ args[PARAM_FILE] )
+      save(args[PARAM_FILE],out)
   else:
-    print "Error: File does not exist"
+    error("Error: File does not exist")
 
 # Generation of a project with a set of files
 # Description: Outputs the entire project
@@ -50,5 +65,5 @@ def codeProject(args,flag,data):
     if( "stdout" in args[2]):
       print load("projects/"+args[1])
   else:
-    print "Error: Project does not exist"
+    error("Error: Project does not exist")
 

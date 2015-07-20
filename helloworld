@@ -1,19 +1,10 @@
-import os
-import sys
-from util import save,load,mkdir, log, printClear, printBlue, printHeader
-from commands import commands # Library to keep all the command directing
-from globalVars import get,set
+<html>
 
-#Initialization
-def init():
-  set("continued",0)
-  mkdir("blocks") # Storage of these projects
-  mkdir("files")
-  mkdir("projects")
-  printClear()
-  printHeader()
-  
 
+helloworld
+
+
+</html>
 # Command Line interface
 def main():
   init()
@@ -35,11 +26,3 @@ def main():
       if not line:
           break
       commands(line)
-
-# Create a command line thread as well
-if __name__ == "__main__":
-  main()
-
-
-
-

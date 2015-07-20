@@ -1,7 +1,9 @@
 import os 
 import sys
-from util import save,load,mkdir,cont,log, printBlue
+from util import save,load,mkdir,cont,log, printBlue,error
 from globalVars import set,get
+import json
+import view
 
 # Handle insertions for code, saves code blocks
 def insertBlock(args,flag, data):
@@ -16,19 +18,6 @@ def insertBlock(args,flag, data):
     set("key",args[1])
     log("Enter Block Information and press Ctrl+D when done!")
 
-# Remove a block
-def deleteBlock(args, flag, data):
-  os.remove("blocks/"+args[1])
-  log("Block deleted.")
-
-def deleteFile(args, flag, data):
-  os.remove("file/"+args[1])
-  log("File deleted.")
-
-def deleteProject(args, flag, data):
-  os.remove("project/"+args[1])
-  log("Project deleted.")
-
 # Handles insertions for files
 # Method of check all of the inserts
 # @Params - Key
@@ -36,29 +25,41 @@ def deleteProject(args, flag, data):
 # @Params - Block consistency [1,2,3,4 ... n]
 # Example Usage: file util 1 helloworld hello s1
 def insertFile(args,flag,data):
-  # Creates a smart JSON file to keep all the information necessary
-  # Compiled with a sequence of arguments
+  # PARAM_CONSTRUCT = 2
   PARAM_KEY = 1
-  PARAM_CONSTRUCT = 2
-  PARAM_BLOCKS_BASE = 3
-
-  # Default output is JSON
-  # Prepare to push the JSON format
+  PARAM_BLOCKS_BASE = 2
   data = []
-  for x in args[PARAM_BLOCKS_BASE:]:
-    # Check that we have valid blocks!
-    data.append(x)
+  files = os.listdir("blocks")
 
-  # Save into json files
-  save("files/"+key,data)
-  #save("files/"+key,data)
+  for x in args[PARAM_BLOCKS_BASE:]:
+    if x in files:
+      data.append(x)
+    else :
+      print "Error: Invalid Block"
+
+  save("files/" + args[PARAM_KEY], json.dumps(data))  
+
 
 # Handles insertions for complete projects
 # @Params - Key
 # @Params - Constructor format ["json", "custom1"]
 # @Params - File consistency [1,2,3,4 .. n]
 # Example Usage: project util 
-def insertProject(args,flag,data):
+def insertModule(args,flag,data):
   # Creates a project based on file jsons on the layout of the code block
-  save("projects/"+key,data)
+  # PARAM_CONSTRUCT = 2
+  PARAM_KEY = 1
+  PARAM_NAME_DIR = 2
+  PARAM_FILES_BASE = 3
+  data = []
+  files = os.listdir("files")
+
+  # Another method of constructing a project
+  for x in args[PARAM_FILES_BASE:]:
+    if x in files:
+      data.append(x)
+    else :
+      print "Error: Invalid Block"
+ 
+  save("projects/" + args[PARAM_KEY], json.dumps(data))
 

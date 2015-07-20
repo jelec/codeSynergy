@@ -1,6 +1,7 @@
 import os
 import sys
 from globalVars import set,get
+import json
 
 debug = 1
 
@@ -21,6 +22,20 @@ def save(path, data, line=0):
   with open(path,'w+') as f:
     f.seek(int(line)) #Save this information to a particular line
     f.write(data)
+
+def loadJSON(path):
+  data = []
+  with open(path) as f:
+    for line in f:
+        data.append(json.loads(line))
+
+  return data
+
+def printHeader():
+  log("---------------------------------------------")
+  log("--------- Code Synergy: By jelec  -----------")
+  log("---------------------------------------------")
+  printBlue("Enter commands or type \"help\"")
 
 def printClear():
   os.system('cls' if os.name == 'nt' else 'clear')
@@ -53,8 +68,15 @@ def printYellow(data):
   print bcolors.WARNING + data + bcolors.ENDC
 
 def printPink(data):
-  print bcolors.HEADERdH + data + bcolors.ENDC
+  print bcolors.HEADER + data + bcolors.ENDC
+
+def error(data):
+  print bcolors.FAIL + data + bcolors.ENDC
 
 def log(string):
   if(debug):
     printGreen(string)
+
+def clear(a,b,c):
+  printClear()
+  printHeader()

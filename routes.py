@@ -2,7 +2,8 @@ import gen
 import create
 import misc
 import view
-from util import save,load,mkdir, log
+import delete
+from util import save,load,mkdir,log,clear
 
 # Command Help
 def help(args,flag,data):
@@ -15,7 +16,11 @@ def help(args,flag,data):
 # Command routing 
 routes = {  "b" : gen.codeBlock,
             "c" : create.insertBlock,
-            "rm" : create.deleteBlock,
+            "p" : create.insertModule,
+            "f" : gen.codeFile,
+            "cf" : create.insertFile,
+            "rm" : delete.deleteBlock,
+            "clear": clear,
             "help": help,
             "block" : gen.codeBlock,
             "create" : create.insertBlock,
@@ -23,9 +28,9 @@ routes = {  "b" : gen.codeBlock,
             "lb" : view.allBlocks,
             "lf" : view.allFiles,
             "lp" : view.allProjects,
-            "rb" : create.deleteBlock,
-            "rp" : create.deleteProject,
-            "rf" : create.deleteFile,}
+            "rb" : delete.deleteBlock,
+            "rp" : delete.deleteProject,
+            "rf" : delete.deleteFile,}
 
 helpGuide = {"b" : "\"b\" - Write out code block \n Description: Output a code block.\n Parameters:\n 1. Key of Codeblock \n 2. File [Optional] \n 3. Line [Optional]",
              "block": "\"block\" - write out code block \n Description: Output a code block.\n Parameters:\n 1. Key of CB \n 2. File [Optional] \n 3. Line [Optional]",
