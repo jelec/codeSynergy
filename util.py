@@ -22,6 +22,8 @@ def save(path, data, line=0):
     f.seek(int(line)) #Save this information to a particular line
     f.write(data)
 
+def printClear():
+  os.system('cls' if os.name == 'nt' else 'clear')
 
 def cont(state, cmd):
   set("continued", state)
