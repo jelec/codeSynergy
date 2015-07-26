@@ -1,0 +1,7 @@
+Changelog
+
+Revision 0.04:
+
+Adding Project Level Generation
+Adding Modules to generate node JS rest APIs
+Adding String Manipulation hooks to customize files
