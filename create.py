@@ -45,21 +45,27 @@ def insertFile(args,flag,data):
 # @Params - Constructor format ["json", "custom1"]
 # @Params - File consistency [1,2,3,4 .. n]
 # Example Usage: project util 
-def insertModule(args,flag,data):
+def insertModule (args,flag,data):
   # Creates a project based on file jsons on the layout of the code block
   # PARAM_CONSTRUCT = 2
+  log("Creating module!")
   PARAM_KEY = 1
   PARAM_NAME_DIR = 2
   PARAM_FILES_BASE = 3
   data = []
   files = os.listdir("files")
+  ARGUMENTS = len(args[PARAM_FILES_BASE:]) - 1
+  print ARGUMENTS
 
   # Another method of constructing a project
   for x in args[PARAM_FILES_BASE:]:
+    # Split the arguments here
+    s = x.split(":")
+    # For each odd one we will iterate through those!
     if x in files:
       data.append(x)
     else :
-      print "Error: Invalid Block"
+      print "Error: Invalid File"
  
   save("projects/" + args[PARAM_KEY], json.dumps(data))
 
