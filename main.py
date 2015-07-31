@@ -7,6 +7,7 @@ from globalVars import get,set
 #Initialization
 def init():
   set("continued",0)
+  set("tag","unset")
   mkdir("blocks") # Storage of these projects
   mkdir("files")
   mkdir("projects")

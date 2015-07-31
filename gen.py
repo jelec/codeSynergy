@@ -26,7 +26,6 @@ def codeBlock(args,flag,data):
     # Format these blocks
     if(ARGUMENTS == PARAM_FORMATTER): # Format blocks
       block = format.block(block, args[PARAM_FORMATTER])
-
     if(ARGUMENTS <= PARAM_FORMATTER): # No file specified
       log(block)
     else:
@@ -45,12 +44,14 @@ def createFile(_file, formating, formatFlag):
       if(formatFlag): # Alter all the blocks in said fashion
         block = format.block(block, formating)     
       out += block
-      # out += "\n" # Adds some spacing between blocks
+      out += "\n" # Adds some spacing between blocks
 
   return out
 
+
 # Generation of a file with accordance of a JSON map 
 # Description: Outputs the file into a directory
+# Also allows blocks to be substituted inside blocks
 # @Params : Key - Name of the code File
 # @Params : File - Name of the file we want to out (e.g. stdout or text.txt)
 def codeFile(args,flag,data): 
@@ -69,7 +70,7 @@ def codeFile(args,flag,data):
       if(ARGUMENTS == PARAM_FORMATTER): # Alter all the blocks in said fashion
         block = format.block(block, args[PARAM_FORMATTER])     
       out += block
-      # out += "\n" # Adds some spacing between blocks
+      out += "\n" # Adds some spacing between blocks
 
     # No file specified
     if(len(args) < 3 ): 

@@ -23,6 +23,7 @@ def insertBlock(args,flag, data):
 # @Params - Key
 # @Params - Constructor format ["json", "custom1"] [Allows for different parsers]
 # @Params - Block consistency [1,2,3,4 ... n]
+# Allow blocks to be fixed inside blocks 
 # Example Usage: file util 1 helloworld hello s1
 def insertFile(args,flag,data):
   # PARAM_CONSTRUCT = 2
@@ -32,6 +33,8 @@ def insertFile(args,flag,data):
   files = os.listdir("blocks")
 
   for x in args[PARAM_BLOCKS_BASE:]:
+    if("unset" not in get("tag")): # Tagging system works!
+      x = get("tag") + "." + x
     if x in files:
       data.append(x)
     else :
@@ -51,8 +54,9 @@ def insertModule (args,flag,data):
   log("Creating module!")
   PARAM_KEY = 1
   PARAM_NAME_DIR = 2
-  PARAM_FILES_BASE = 3
-  data = []
+  # key : value
+  PARAM_FILES_BASE = 3 # Use this as key value stores, as we don't have a specific domain and naming
+  data = [] 
   files = os.listdir("files")
   ARGUMENTS = len(args[PARAM_FILES_BASE:]) - 1
   print ARGUMENTS
@@ -60,10 +64,10 @@ def insertModule (args,flag,data):
   # Another method of constructing a project
   for x in args[PARAM_FILES_BASE:]:
     # Split the arguments here
-    s = x.split(":")
-    # For each odd one we will iterate through those!
-    if x in files:
-      data.append(x)
+    s = x.split(":") # Which is a key value store
+    # We assume the first argument is the key value
+    if s[0] in files:
+      data.append(s)
     else :
       print "Error: Invalid File"
  

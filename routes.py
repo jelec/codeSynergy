@@ -30,7 +30,10 @@ routes = {  "b" : gen.codeBlock,
             "lp" : view.allProjects,
             "rb" : delete.deleteBlock,
             "rp" : delete.deleteProject,
-            "rf" : delete.deleteFile,}
+            "rf" : delete.deleteFile,
+            "setTag" : misc.setTag,
+            "clearTag": misc.clearTag,
+            "mkdir": misc._mkdir}
 
 helpGuide = {"b" : "\"b\" - Write out code block \n Description: Output a code block.\n Parameters:\n 1. Key of Codeblock \n 2. File [Optional] \n 3. Line [Optional]",
              "block": "\"block\" - write out code block \n Description: Output a code block.\n Parameters:\n 1. Key of CB \n 2. File [Optional] \n 3. Line [Optional]",
